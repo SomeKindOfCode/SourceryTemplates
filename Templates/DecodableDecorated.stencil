@@ -1,0 +1,22 @@
+
+{% for type in types.based.Codable %}
+
+{% if type.variables|annotated:"key" %}
+	// sourcery:inline:auto:{{ type.name }}.DecodableDecorated
+    enum CodingKey: String, CodingKey {
+        {% for variable in type.variables|!computed %}
+		case {{variable.name}} {% if variable|annotated:"key" %} = "{{variable.annotations.key}}" {% endif %}
+        {% endfor %}
+    }
+
+	required init (from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+
+		{% for variable in type.variables|!computed %}
+		self.{{variable.name}} = try values.{%if variable.isOptional%}decodeIfPresent{%else%}decode{%endif%}({{variable.typeName.unwrappedTypeName}}.self, forKey: .{{variable.name}})
+        {% endfor %}
+    }
+	// sourcery:end
+{% endif %}
+
+{% endfor %}
