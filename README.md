@@ -1,9 +1,9 @@
 # SourceryTemplates
 This repository contains a collection of templates for [Sourcery](https://github.com/krzysztofzablocki/Sourcery) to help you with common issues you have to face during your Swift development by generating code for you.
 
-## Available Template
+## Available Templates
 
-- [DecodableDecorated](#DecodableDecorated)
+- [DecodableDecorated](#decodabledecorated)
 
 ### [DecodableDecorated](Templates/DecodableDecorated.stencil)
 
